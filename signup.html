@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedScan - Sign Up</title>
+
+    <script>
+        // Prevent layout flash of login button on page load if user is already logged in
+        if (localStorage.getItem('medscan_logged_in') === 'true') {
+            document.documentElement.classList.add('user-logged-in-loading');
+        }
+    </script>
+
+    <!-- Module Preloads for faster Firebase load/compilation times -->
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js">
+    <link rel="modulepreload" href="./firebase-config.js">
+    <link rel="modulepreload" href="./auth.js">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="bat knight.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <style>
+        /* -------------------------------------
+           PROFESSIONAL AUTH STYLES (Split Layout)
+           ------------------------------------- */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 60px 5%;
+            position: relative;
+        }
+
+        .pro-auth-box {
+            display: flex;
+            width: 100%;
+            max-width: 1050px;
+            background: rgba(10, 20, 15, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: floatUp 0.8s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* LEFT SIDE (BRANDING) */
+        .auth-left {
+            flex: 1.1;
+            background: linear-gradient(145deg, rgba(3, 30, 20, 0.85), rgba(7, 45, 30, 0.95));
+            padding: 70px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(0, 255, 170, 0.15), transparent 60%);
+            pointer-events: none;
+        }
+
+        .auth-left-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: inherit;
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 50px;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-brand i {
+            color: #00ffae;
+            font-size: 32px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.4));
+        }
+
+        .auth-left h2 {
+            font-size: 40px;
+            line-height: 1.25;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+        }
+
+        .auth-left p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            margin-bottom: 45px;
+        }
+
+        .auth-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .auth-features div {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 16px;
+            color: #eafff7;
+            font-weight: 500;
+        }
+
+        .auth-features i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #003d2b;
+            font-size: 16px;
+            background: #00ffae;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.3);
+        }
+
+        /* RIGHT SIDE (FORM) */
+        .auth-right {
+            flex: 1;
+            padding: 70px 60px;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-content {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .login-content h3 {
+            font-size: 30px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .login-content .sub-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        /* Social Grid */
+        .social-auth-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn i {
+            font-size: 20px;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Divider */
+        .login-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-divider::before {
+            margin-right: 1em;
+        }
+
+        .login-divider::after {
+            margin-left: 1em;
+        }
+
+        /* Inputs */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #eafff7;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.4);
+            transition: color 0.3s ease;
+        }
+
+        .glass-input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .glass-input:focus {
+            background: rgba(0, 0, 0, 0.45);
+            border-color: #00ffae;
+            box-shadow: 0 0 0 4px rgba(0, 255, 170, 0.15);
+        }
+
+        .glass-input:focus+i,
+        .input-wrap:focus-within i {
+            color: #00ffae;
+        }
+
+        .glass-submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #022b1f;
+            background: linear-gradient(135deg, #00ffae, #00cfff);
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 255, 170, 0.25);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+        }
+
+        .glass-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 255, 170, 0.4);
+            filter: brightness(1.05);
+        }
+
+        .bottom-links {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .bottom-links a {
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .bottom-links a:hover {
+            color: #00ffae;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 950px) {
+            .pro-auth-box {
+                flex-direction: column;
+                max-width: 550px;
+            }
+
+            .auth-left {
+                padding: 50px 40px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .auth-left h2 {
+                font-size: 32px;
+            }
+
+            .auth-right {
+                padding: 50px 40px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .auth-left {
+                display: none;
+            }
+
+            .login-section {
+                padding: 100px 4% 40px 4%;
+            }
+
+            .auth-right {
+                padding: 40px 25px;
+            }
+
+            .social-auth-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- NAVBAR -->
+        <nav>
+            <div class="nav-left">
+                <div class="hamburger">&#9776;</div>
+                <img src="medscan.png" class="logo" alt="MedScan Logo" style="cursor: pointer;"
+                    onclick="window.location.href='index.html'">
+            </div>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#download">Download</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="login.html" class="apple-glass-btn">Login</a></li>
+            </ul>
+
+            <div class="follow-wrap">
+                <div class="icon">
+                    <a href="#" class="follow-btn">Follow us</a>
+                    <a href="#"><i class="ri-facebook-fill"></i></a>
+                    <a href="#"><i class="ri-instagram-fill"></i></a>
+                    <a href="#"><i class="ri-twitter-x-fill"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- SIGNUP SECTION -->
+        <section class="login-section">
+
+            <div class="pro-auth-box">
+
+                <!-- LEFT SIDE (INFO) -->
+                <div class="auth-left">
+                    <div class="auth-left-content">
+                        <div class="auth-brand" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                            <i class="bx bx-shield-quarter"></i>
+                            <div>MedScan</div>
+                        </div>
+                        <h2>Begin Your Healthy Journey</h2>
+                        <p>Create an account to unlock intelligent medicine scans, save your reports, and protect your
+                            loved ones effortlessly.</p>
+
+                        <div class="auth-features">
+                            <div><i class="ri-check-line"></i> Secure & Private Medical Data</div>
+                            <div><i class="ri-check-line"></i> Instant AI Medication Guidance</div>
+                            <div><i class="ri-check-line"></i> Certified & Verified Sources</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE (FORM) -->
+                <div class="auth-right">
+                    <div class="login-content">
+                        <h3>Create an Account</h3>
+                        <p class="sub-text">Join MedScan today.</p>
+
+                        <!-- Social Login Links -->
+                        <div class="social-auth-grid">
+                            <button class="social-btn">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                                    alt="G" width="20" height="20"> Google
+                            </button>
+                            <button class="social-btn">
+                                <i class="ri-apple-fill" style="color: #fff;"></i> Apple
+                            </button>
+                        </div>
+
+                        <div class="login-divider">Or sign up with email</div>
+
+                        <!-- Email Sign Up Form -->
+                        <form id="signup-form" action="#" method="POST" onsubmit="event.preventDefault();">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <div class="input-wrap">
+                                    <i class="ri-user-line"></i>
+                                    <input type="text" class="glass-input" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <div class="input-wrap">
+                                    <i class="ri-mail-line"></i>
+                                    <input type="email" class="glass-input" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <div class="input-wrap">
+                                    <i class="ri-lock-line"></i>
+                                    <input type="password" class="glass-input" placeholder="Create a password" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="glass-submit-btn">Sign Up</button>
+                        </form>
+
+                        <!-- Extra Links -->
+                        <div class="bottom-links">
+                            Already have an account? <a href="login.html">Sign In</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="joker.js"></script>
+</body>
+
+</html>

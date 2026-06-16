@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedScan - Accurate Medicine Scans & AI Guidance</title>
+
+  <script>
+    // Prevent layout flash of login button on page load if user is already logged in
+    if (localStorage.getItem('medscan_logged_in') === 'true') {
+      document.documentElement.classList.add('user-logged-in-loading');
+    }
+  </script>
+
+  <!-- Module Preloads for faster Firebase load/compilation times -->
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js">
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js">
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js">
+  <link rel="modulepreload" href="./firebase-config.js">
+  <link rel="modulepreload" href="./auth.js">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="bat knight.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+    <nav>
+      <div class="nav-left">
+        <div class="hamburger">&#9776;</div>
+        <img src="medscan.png" class="logo" alt="MedScan Logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
+      </div>
+
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="login.html" class="apple-glass-btn">Login</a></li>
+      </ul>
+
+      <div class="follow-wrap">
+        <div class="icon">
+          <a href="#" class="follow-btn">Follow us</a>
+          <a href="#"><i class="ri-facebook-fill"></i></a>
+          <a href="#"><i class="ri-instagram-fill"></i></a>
+          <a href="#"><i class="ri-twitter-x-fill"></i></a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="bolt">
+
+      <div class="bolt-content">
+        <h1>Accurate Medical Scans. Faster Results.</h1>
+        <p>
+          Upload, scan, and check your medicine details and why to consume it,
+          and what diseases this medicine cures with fast and accurate results.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#" class="apple-glass-btn primary">Scan Now</a>
+          <a href="#download" class="apple-glass-btn secondary">Download</a>
+        </div>
+      </div>
+      <div class="glass-media">
+        <video autoplay muted loop playsinline>
+          <source src="pokemon.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="about">
+      <h2>How It Works</h2>
+      <p class="how-subtitle">
+        From scan to clarity — powered by AI precision
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <i class="bx bx-upload"></i>
+          <h3>Upload Medicine</h3>
+          <p>Upload an image or scan of your medicine packaging.</p>
+        </div>
+
+        <div class="step">
+          <span class="step-num">02</span>
+          <i class="bx bx-search-alt-2"></i>
+          <h3>AI Analysis</h3>
+          <p>Our system detects medicine name, composition, and usage.</p>
+        </div>
+
+        <div class="step">
+          <span class="step-num">03</span>
+          <i class="bx bx-check-circle"></i>
+          <h3>Instant Guidance</h3>
+          <p>Get clear dosage, safety info, and usage guidance instantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- features section -->
+    <section class="features">
+      <h2 class="features-title">Key Features</h2>
+      <p class="features-subtitle">
+        Your health, our priority — engineered for the future
+      </p>
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-shield-quarter"></i>
+          <h3>Safety First</h3>
+          <p>Instant alerts for allergies, interactions, and risks.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-time-five"></i>
+          <h3>Smart Reminders</h3>
+          <p>AI-based dosage reminders tailored to your routine.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-world"></i>
+          <h3>Global Database</h3>
+          <p>Medicine insights sourced from worldwide databases.</p>
+          <div class="clickable" onclick="doSomething()">COMING SOON</div>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-user-check"></i>
+          <h3>Human-Centric</h3>
+          <p>Designed for clarity, speed, and effortless navigation.</p>
+        </div>
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-cog"></i>
+          <h3>Customizable Settings</h3>
+          <p>Personalize alerts, themes, and notification preferences.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-plus-circle"></i>
+          <h3>MORE FEATURES</h3>
+          <div class="clickable" onclick="doSomething()">COMING SOON...</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- why trust us -->
+  <section class="trust">
+    <h2 class="trust-title">Why Trust Us?</h2>
+    <p class="trust-subtitle">
+      Built with care, clarity, and complete transparency
+    </p>
+
+    <div class="trust-grid">
+
+      <div class="trust-card">
+        <div class="trust-icon">
+          <i class="bx bx-shield"></i>
+        </div>
+        <div class="trust-content">
+          <h3>Strong Data Privacy</h3>
+          <p>Your personal and medical data is protected with advanced encryption.</p>
+        </div>
+      </div>
+
+      <div class="trust-card">
+        <div class="trust-icon">
+          <i class="bx bx-certification"></i>
+        </div>
+        <div class="trust-content">
+          <h3>Government & Medical Standards</h3>
+          <p>We follow international healthcare regulations and safety guidelines.</p>
+        </div>
+      </div>
+
+      <div class="trust-card">
+        <div class="trust-icon">
+          <i class="bx bx-user"></i>
+        </div>
+        <div class="trust-content">
+          <h3>Designed for Everyone</h3>
+          <p>Simple layout, large text, and easy navigation for all age groups.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <section class="who-spotlight">
+    <h2>Who Is This For?</h2>
+    <p class="subtitle">Two worlds. One powerful solution.</p>
+
+    <div class="spotlight-wrap">
+
+      <div class="spot users">
+        <span class="tag">USERS</span>
+        <h3>Everyday People</h3>
+        <p>
+          Scan medicines.
+          Understand usage.
+          Stay safe, always.
+        </p>
+      </div>
+
+      <div class="spotlight-divider"></div>
+
+      <div class="spot shops">
+        <span class="tag">SHOPS</span>
+        <h3>Medical Stores</h3>
+        <p>
+          Smart inventory.
+          More visibility.
+          More customers.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <section class="scan-demo">
+    <h2>See What Happens After You Scan </h2>
+
+    <div class="demo-wrapper">
+
+      <!-- Phone Mockup -->
+      <div class="phone">
+        <div class="screen scan active">
+          <p>Scanning Medicine...</p>
+          <div class="scan-line"></div>
+        </div>
+
+        <div class="screen result">
+          <h3>✔ Safe Medicine</h3>
+          <p>Paracetamol 500mg</p>
+          <span>Use: Fever & Pain</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="demo-text">
+        <h3>Real-time Scan Experience</h3>
+        <p>
+          Point your camera at the medicine strip and instantly get
+          usage, safety, and warnings — no confusion, no risk.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <section class="cta-section" id="download">
+    <div class="cta-glow"></div>
+
+    <h2>Scan Your Medicine. Stay Safe.</h2>
+    <p>
+      One scan can prevent wrong usage, side effects, and fake medicines.
+      Try it once — you’ll never guess again.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="#" class="cta-btn primary">Scan Your Medicine Now</a>
+      <a href="#" class="cta-btn secondary">Try It Free</a>
+    </div>
+  </section>
+  <section class="safety-section">
+    <div class="safety-card">
+      <div class="safety-icon">🛡️</div>
+
+      <h3>Your Safety Comes First</h3>
+      <p>
+        We do <strong>not</strong> provide prescriptions, dosage instructions,
+        or medical treatment advice.
+        This app is designed for awareness and information only.
+      </p>
+      <p class="note">
+        Always consult a certified doctor or licensed medical professional
+        before taking any medication.
+      </p>
+    </div>
+  </section>
+  <footer class="footer" id="contact">
+    <div class="footer-glow"></div>
+
+    <div class="footer-content">
+
+      <!-- BRAND -->
+      <div class="footer-brand">
+        <h2>Medscan</h2>
+        <p>
+          Scan medicines instantly.
+          Understand usage.
+          Stay safe — always.
+        </p>
+      </div>
+
+      <!-- LINKS -->
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="#about">About</a>
+        <a href="#download">How It Works</a>
+        <a href="#disclaimer">Disclaimer</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: Medscanfind@gmail.com</p>
+        <p>Built with ❤️ for safer healthcare</p>
+      </div>
+
+      <!-- SOCIAL -->
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="ri-twitter-x-fill"></i></a>
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-facebook-fill"></i></a>
+          <a href="#"><i class="ri-linkedin-fill"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Medscan. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- LOGIN MODAL (ChatGPT Style Overlay) -->
+  <div id="loginModal" class="login-modal-overlay">
+    <div class="login-container">
+      <button class="close-btn" onclick="closeLogin()">&times;</button>
+
+      <!-- Minimal SVG Logo Placeholder matching OpenAI aesthetic -->
+      <div class="logo-box">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M22.28 11.23a8.91 8.91 0 0 0-3.3-6.6 8.78 8.78 0 0 0-7.38-1.74A8.75 8.75 0 0 0 5 1.5a8.7 8.7 0 0 0-6.19 6.2 8.78 8.78 0 0 0 1.74 7.37 8.9 8.9 0 0 0 3.3 6.6 8.75 8.75 0 0 0 7.38 1.74 8.75 8.75 0 0 0 6.6-3.3 8.7 8.7 0 0 0 6.19-6.2 8.78 8.78 0 0 0-1.74-7.37zm-3.3 5.4a6.6 6.6 0 0 1-5.63 2.11 6.54 6.54 0 0 1-4.9-3.4l10.37-6a6.57 6.57 0 0 1 .16 7.3zm-10 2.2a6.56 6.56 0 0 1-3.66-4.59 6.6 6.6 0 0 1 2.38-6 6.58 6.58 0 0 1 5.92-1l-5.18 8.97a6.6 6.6 0 0 1 .54.62zM4.09 9.38A6.6 6.6 0 0 1 7.42 4.14a6.54 6.54 0 0 1 6-1 6.58 6.58 0 0 1 4.5 4.7l-9.84 5.67V9.38zM8.33 13.9a2.3 2.3 0 1 1 2.3-2.3 2.3 2.3 0 0 1-2.3 2.3zm2.5-1A2.3 2.3 0 1 1 13.13 14a2.3 2.3 0 0 1-2.3-1.1zm2.5-4.4a2.3 2.3 0 1 1 2.3 2.3 2.3 2.3 0 0 1-2.3-2.3zm1.1-2.5a2.3 2.3 0 1 1 2.3 2.3 2.3 2.3 0 0 1-2.3-2.3z" />
+        </svg>
+      </div>
+
+      <h1 class="login-title">Welcome back</h1>
+
+      <form id="modal-login-form" action="#" method="POST" onsubmit="event.preventDefault();">
+        <div class="form-group">
+          <input type="email" class="form-input" placeholder="Email address" required>
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-input" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="btn-continue">Continue</button>
+      </form>
+
+      <div class="links-container">
+        <a href="forgot-password.html" class="auth-link">Forgot password?</a>
+        <a href="signup.html" class="auth-link signup">Don't have an account? <span>Sign up</span></a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="joker.js"></script>
+</body>
+
+</html>
