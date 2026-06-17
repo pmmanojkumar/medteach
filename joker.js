@@ -83,9 +83,9 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Automatically select important website elements
+  // Automatically select important website elements (excluding hero section to prevent load delay)
   const elements = document.querySelectorAll(
-    "section, .feature-card, .trust-card, .step, .spot, .cta-section, footer, .about, .services"
+    "section:not(.bolt), .feature-card, .trust-card, .step, .spot, .cta-section, footer, .about, .services"
   );
 
   // Add animation class automatically

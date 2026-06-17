@@ -70,16 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Select social buttons safely
     const googleBtn = Array.from(document.querySelectorAll('.social-btn'))
         .find(btn => btn.querySelector('img[alt="G"]'));
-    const appleBtn = Array.from(document.querySelectorAll('.social-btn'))
-        .find(btn => btn.textContent.includes('Apple') || btn.querySelector('.ri-apple-fill'));
 
     console.log("[Auth] Forms detected on page:", {
         loginForm: !!loginForm,
         signupForm: !!signupForm,
         forgotForm: !!forgotForm,
         modalLoginForm: !!modalLoginForm,
-        googleBtn: !!googleBtn,
-        appleBtn: !!appleBtn
+        googleBtn: !!googleBtn
     });
 
     // Handle Login Page Form
@@ -101,6 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const email = emailInput.value.trim();
             const password = passwordInput.value;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Please enter a valid email address.", "error");
+                return;
+            }
+            if (password.length < 6) {
+                showToast("Password must be at least 6 characters.", "error");
+                return;
+            }
 
             // Set loading state
             const originalBtnText = submitBtn ? submitBtn.innerHTML : "Sign In";
@@ -147,6 +154,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const email = emailInput.value.trim();
             const password = passwordInput.value;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Please enter a valid email address.", "error");
+                return;
+            }
+            if (password.length < 6) {
+                showToast("Password must be at least 6 characters.", "error");
+                return;
+            }
 
             // Set loading state
             const originalBtnText = submitBtn ? submitBtn.innerHTML : "Continue";
@@ -201,6 +218,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = passwordInput.value;
             const fullName = nameInput ? nameInput.value.trim() : "";
 
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Please enter a valid email address.", "error");
+                return;
+            }
+            if (password.length < 6) {
+                showToast("Password must be at least 6 characters.", "error");
+                return;
+            }
+            if (fullName.length < 2) {
+                showToast("Please enter your full name.", "error");
+                return;
+            }
+
             // Set loading state
             const originalBtnText = submitBtn ? submitBtn.innerHTML : "Sign Up";
             if (submitBtn) {
@@ -253,6 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const email = emailInput.value.trim();
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Please enter a valid email address.", "error");
+                return;
+            }
 
             // Set loading state
             const originalBtnText = submitBtn ? submitBtn.innerHTML : "Send Recovery Link";
@@ -307,14 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle Apple Login Button Click (UX improvement)
-    if (appleBtn) {
-        appleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log("[Auth] Apple sign-in clicked (Placeholder).");
-            showToast("Apple Sign-in is coming soon!", "success");
-        });
-    }
+
 
     // Hook Call-to-Action (CTA) scan buttons to either scan or open the homepage login modal
     const scanButtons = document.querySelectorAll(
@@ -390,9 +420,10 @@ function updateAuthUI(user) {
             welcome.className = 'welcome-user';
             welcome.style.position = 'relative';
 
-            const fullName = user.displayName || user.email.split('@')[0];
+            const rawName = user.displayName || user.email.split('@')[0];
+            const fullName = escapeHTML(rawName);
             const firstLetter = fullName.charAt(0).toUpperCase();
-            const photoURL = user.photoURL;
+            const photoURL = user.photoURL ? escapeHTML(user.photoURL) : null;
 
             welcome.innerHTML = `
                 <div class="user-menu-trigger" style="cursor: pointer; position: relative; display: flex; align-items: center;">
@@ -547,4 +578,17 @@ function formatAuthError(error) {
             // Strip firebase prefix: 'auth/error-code' -> 'Error Code'
             return error.code.replace('auth/', '').split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
     }
+}
+
+/**
+ * Safely escapes HTML characters to prevent XSS.
+ */
+function escapeHTML(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }

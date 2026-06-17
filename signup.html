@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://unpkg.com https://cdn.jsdelivr.net; img-src 'self' data: https://upload.wikimedia.org https://lh3.googleusercontent.com https://*.googleusercontent.com; media-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com https://*.firebasestorage.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://*.firebaseapp.com;">
     <title>MedScan - Sign Up</title>
 
     <script>
@@ -196,7 +197,7 @@
         /* Social Grid */
         .social-auth-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -459,9 +460,6 @@
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
                                     alt="G" width="20" height="20"> Google
                             </button>
-                            <button class="social-btn">
-                                <i class="ri-apple-fill" style="color: #fff;"></i> Apple
-                            </button>
                         </div>
 
                         <div class="login-divider">Or sign up with email</div>
@@ -472,7 +470,7 @@
                                 <label class="form-label">Full Name</label>
                                 <div class="input-wrap">
                                     <i class="ri-user-line"></i>
-                                    <input type="text" class="glass-input" placeholder="Enter your full name" required>
+                                    <input type="text" class="glass-input" placeholder="Enter your full name" autocomplete="name" required>
                                 </div>
                             </div>
 
@@ -480,7 +478,7 @@
                                 <label class="form-label">Email Address</label>
                                 <div class="input-wrap">
                                     <i class="ri-mail-line"></i>
-                                    <input type="email" class="glass-input" placeholder="Enter your email" required>
+                                    <input type="email" class="glass-input" placeholder="Enter your email" autocomplete="username" required>
                                 </div>
                             </div>
 
@@ -488,7 +486,7 @@
                                 <label class="form-label">Password</label>
                                 <div class="input-wrap">
                                     <i class="ri-lock-line"></i>
-                                    <input type="password" class="glass-input" placeholder="Create a password" required>
+                                    <input type="password" class="glass-input" placeholder="Create a password" autocomplete="new-password" required>
                                 </div>
                             </div>
 
