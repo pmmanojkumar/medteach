@@ -108,3 +108,15 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(el);
   });
 });
+
+// Lazy-load the heavy 50MB background video after the page has fully loaded
+window.addEventListener("load", () => {
+  const video = document.getElementById("hero-video");
+  if (video) {
+    const source = video.querySelector("source");
+    if (source && source.dataset.src) {
+      source.src = source.dataset.src;
+      video.load();
+    }
+  }
+});
