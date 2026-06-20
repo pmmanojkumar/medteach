@@ -31,8 +31,8 @@ console.log("[Firebase] Initializing application with configuration:", {
 });
 
 try {
-    if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "AIzaSyD89E_pznM5-UsHCRdHlr9scJEgmhzQrMs") {
-        console.warn("[Firebase] Warning: Using default or placeholder API Key. Ensure it is correct in firebase-config.js.");
+    if (!firebaseConfig.apiKey) {
+        console.warn("[Firebase] Warning: API Key is missing in firebase-config.js.");
     }
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("[Auth] Login successful:", userCredential.user);
                 localStorage.setItem('medscan_logged_in', 'true');
                 showToast("Welcome back!", "success");
-                setTimeout(() => window.location.href = 'index.html', 150);
+                setTimeout(() => window.location.href = '/', 150);
             } catch (error) {
                 console.error("[Auth] Login error:", error.code, error.message);
                 showToast(formatAuthError(error), "error");
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 showToast("Account Created! Redirecting...", "success");
-                setTimeout(() => window.location.href = 'index.html', 150);
+                setTimeout(() => window.location.href = '/', 150);
             } catch (error) {
                 console.error("[Auth] Signup error:", error.code, error.message);
                 showToast(formatAuthError(error), "error");
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await sendPasswordResetEmail(auth, email);
                 console.log("[Auth] Password reset email sent successfully.");
                 showToast("Password reset email sent. Please check your inbox.", "success");
-                setTimeout(() => window.location.href = 'login.html', 1500);
+                setTimeout(() => window.location.href = '/login', 1500);
             } catch (error) {
                 console.error("[Auth] Password reset error:", error.code, error.message);
                 showToast(formatAuthError(error), "error");
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("[Auth] Google login successful:", result.user);
                 localStorage.setItem('medscan_logged_in', 'true');
                 showToast(`Logged in as ${result.user.displayName || result.user.email}!`, "success");
-                setTimeout(() => window.location.href = 'index.html', 150);
+                setTimeout(() => window.location.href = '/', 150);
             } catch (error) {
                 console.error("[Auth] Google login error:", error.code, error.message);
                 showToast(formatAuthError(error), "error");

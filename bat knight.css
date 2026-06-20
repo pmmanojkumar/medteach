@@ -142,14 +142,14 @@ nav {
 /* ===============================
    LINKS
 ================================ */
-ul {
+nav ul {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 22px;
 }
 
-li a {
+nav ul li a {
   color: #ffffff;
   font-size: 14px;
   font-weight: 700;
@@ -158,7 +158,7 @@ li a {
   white-space: nowrap;
 }
 
-li a:hover {
+nav ul li a:hover {
   color: #7affc4;
   transform: translateY(-2px);
 }
@@ -166,7 +166,7 @@ li a:hover {
 /* ===============================
    LOGIN BUTTON FIX
 ================================ */
-ul li:last-child a.apple-glass-btn {
+nav ul li:last-child a.apple-glass-btn {
   min-width: 140px;
   height: 46px;
   font-size: 14px;
@@ -339,51 +339,51 @@ ul li:last-child a.apple-glass-btn {
 /* ===============================
    MOBILE MENU FIX
 ================================ */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 100009;
+}
+
+.nav-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 768px) {
 
   .hamburger {
     display: block;
   }
 
-  ul {
+  nav ul {
     position: fixed;
     top: 0;
     right: 0;
-    width: 280px;
+    width: 300px;
     height: 100vh;
-
-    padding-top: 100px;
-
-    background: linear-gradient(135deg, rgba(120, 255, 200, 0.55), rgba(40, 180, 120, 0.45));
-    backdrop-filter: blur(20px);
-
+    padding: 100px 30px;
+    background: rgba(4, 24, 18, 0.98);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-left: 1px solid rgba(0, 255, 174, 0.15);
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
     gap: 24px;
-
     transform: translateX(100%);
-    transition: transform 0.45s cubic-bezier(.4, 0, .2, 1);
-
-    z-index: 9999;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100010;
   }
 
-  /* overlay will sit behind the menu and above content */
-  .nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.25s ease;
-    z-index: 9998;
-  }
-
-  .nav-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  ul.active {
+  nav ul.active {
     transform: translateX(0);
   }
 }
@@ -397,6 +397,7 @@ ul li:last-child a.apple-glass-btn {
     gap: 26px;
     flex-direction: column;
     text-align: center;
+  }
 
   /* Download mockup responsive tweaks */
   .mockup-display {
@@ -418,7 +419,6 @@ ul li:last-child a.apple-glass-btn {
   .result h3 { font-size: 20px !important; }
   .result p  { font-size: 14px !important; }
   .result span{ font-size: 13px !important; padding: 5px 10px !important; }
-  }
 
   /* Hide large follow widget on very small screens to avoid overlap */
   .follow-wrap { display: none !important; }
@@ -1176,7 +1176,7 @@ video {
 
 .trust {
   padding: 120px 8%;
-  background: inherit(180deg,
+  background: linear-gradient(180deg,
       #1D8557 0%,
       /* image top green */
       #0f3d2e 100%
@@ -1294,7 +1294,7 @@ video {
 .who-spotlight {
   min-height: 100vh;
   padding: 120px 8%;
-  background: inherit(180deg,
+  background: linear-gradient(180deg,
       #1D8557 0%,
       /* image top green */
       #0f3d2e 55%,
@@ -3480,12 +3480,35 @@ nav ul li a.active-nav::after {
   .badge-value {
     font-size: 14px;
   }
+  
+  /* Screenshots Carousel Mobile fixes */
+  .carousel-container {
+    position: relative;
+    padding: 0 50px;
+    width: 100%;
+    gap: 0;
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  .carousel-btn.prev-btn {
+    left: 5px;
+  }
+  .carousel-btn.next-btn {
+    right: 5px;
+  }
+  .carousel-window {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
   .carousel-slide-item {
     flex: 0 0 100%;
   }
-  .carousel-window {
-    max-width: 280px;
-  }
+
   .about-us, .contact-section, .download-hero, .screenshots-section, .faq-section {
     padding: 60px 6% !important;
   }
@@ -3499,5 +3522,33 @@ nav ul li a.active-nav::after {
   }
   .contact-form-wrap {
     padding: 35px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-window {
+    max-width: 220px;
+  }
+  .phone-frame-screenshot {
+    width: 200px;
+    height: 384px;
+    border-radius: 26px;
+    border-width: 6px;
+  }
+  .top-nav-mock {
+    height: 30px;
+  }
+  .green-target-box {
+    width: 90px;
+    height: 90px;
+  }
+  .app-store-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 15px 0;
+  }
+  .badge-item:not(:last-child)::after {
+    display: none; /* remove absolute dividers on grid wrap */
   }
 }

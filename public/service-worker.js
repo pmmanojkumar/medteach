@@ -1,7 +1,6 @@
 const CACHE_NAME = 'medscan-cache-v1';
 const STATIC_ASSETS = [
   '/',
-  '/index.html',
   '/manifest.json',
   '/medscan.png',
   '/icon-192.png',

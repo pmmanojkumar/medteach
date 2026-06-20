@@ -318,8 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Detect if we are on download.html
-    const isDownloadPage = window.location.pathname.includes('download.html');
+    // Detect if we are on download.html or clean URL /download
+    const isDownloadPage = window.location.pathname.includes('download.html') || window.location.pathname.endsWith('/download');
 
     navLinks.forEach(link => {
       link.classList.remove('active-nav');

@@ -22,6 +22,10 @@ export default defineConfig({
               req.url = '/signup.html' + url.search;
             } else if (pathname === '/forgot-password') {
               req.url = '/forgot-password.html' + url.search;
+            } else if (pathname === '/download') {
+              req.url = '/download.html' + url.search;
+            } else if (pathname === '/thank-you') {
+              req.url = '/thank-you.html' + url.search;
             }
           }
           next();
