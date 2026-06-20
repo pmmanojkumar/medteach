@@ -2,8 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Holtwood One SC", serif;
   text-decoration: none;
+}
+
+body, input, button, select, textarea, p, a, li, span {
+  font-family: "Inter", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Holtwood One SC", serif;
 }
 
 /* Prevent overflow */
@@ -2439,6 +2446,8 @@ video {
 
 /* Hide login buttons initially if user is logged in to prevent flash */
 .user-logged-in-loading nav ul li a[href="login.html"],
-.user-logged-in-loading .apple-glass-btn[href="login.html"] {
+.user-logged-in-loading .apple-glass-btn[href="login.html"],
+.user-logged-in-loading nav ul li a[href="/login"],
+.user-logged-in-loading .apple-glass-btn[href="/login"] {
   display: none !important;
 }
