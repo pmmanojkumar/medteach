@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://unpkg.com https://cdn.jsdelivr.net; img-src 'self' data: https://upload.wikimedia.org https://lh3.googleusercontent.com https://*.googleusercontent.com; media-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com https://*.firebasestorage.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://accounts.google.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://*.firebaseapp.com https://accounts.google.com https://apis.google.com;">
+  <title>Download MedScan - App Store Listing</title>
+
+  <!-- Module Preloads -->
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js">
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js">
+  <link rel="modulepreload" href="./firebase-config.js">
+  <link rel="modulepreload" href="./auth.js">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="bat knight.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <!-- PWA Manifest & Settings -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#00ffae">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MedScan">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scroll-bar"></div>
+  </div>
+
+  <div class="container">
+
+    <!-- NAVBAR HEADER WRAPPER -->
+    <header class="site-header">
+      <nav>
+        <div class="nav-left">
+          <div class="hamburger">&#9776;</div>
+          <img src="medscan.png" class="logo" alt="MedScan Logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
+        </div>
+
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="download.html" class="active-nav">Download</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="login.html" class="apple-glass-btn">Login</a></li>
+        </ul>
+
+        <div class="follow-wrap">
+          <div class="icon">
+            <a href="#" class="follow-btn">Follow us</a>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+            <a href="#"><i class="ri-twitter-x-fill"></i></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- DOWNLOAD APP STORE HERO SECTION -->
+    <section class="download-hero">
+      <div class="download-hero-grid">
+        
+        <div class="app-details-card">
+          <div class="app-identity">
+            <div class="app-store-logo">
+              <img src="medscan.png" alt="MedScan App Logo">
+            </div>
+            <div class="app-name-wrap">
+              <h1>MedScan</h1>
+              <h2>Your AI-Powered Medicine Companion</h2>
+              <p class="developer-tag">Developer: MedScan Labs Ltd.</p>
+            </div>
+          </div>
+
+          <div class="app-store-badges">
+            <div class="badge-item">
+              <span class="badge-title">RATING</span>
+              <span class="badge-value">soon ★★★★★</span>
+              <span class="badge-sub">soon Reviews</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-title">CATEGORY</span>
+              <span class="badge-value">Medical</span>
+              <span class="badge-sub">Health & Safety</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-title">PRICE</span>
+              <span class="badge-value">Free</span>
+              <span class="badge-sub">No In-App Purchases</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-title">OFFLINE</span>
+              <span class="badge-value">Yes</span>
+              <span class="badge-sub">Local Database</span>
+            </div>
+          </div>
+
+          <p class="app-description-text">
+            Protect your health and eliminate dosing confusion. MedScan uses state-of-the-art OCR to read packaging details, providing immediate explanations of drug compositions, safety alerts, and intake guidelines offline.
+          </p>
+
+          <div class="download-action-wrap">
+            <button id="download-page-install-btn" class="cta-btn primary download-pwa-btn">
+              <i class="ri-download-cloud-2-line"></i> Install MedScan App
+            </button>
+            <span class="compatibility-info">Compatible with iOS, Android, macOS, Windows, and Linux.</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Phone Preview Mockup -->
+        <div class="mockup-display">
+          <div class="phone download-phone">
+            <div class="screen scan active">
+              <p>Scanning Medicine...</p>
+              <div class="scan-line"></div>
+            </div>
+            <div class="screen result">
+              <h3>✔ Safe Medicine</h3>
+              <p>Paracetamol 500mg</p>
+              <span>Use: Fever & Pain</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS INTERACTIVE CAROUSEL -->
+    <section class="screenshots-section">
+      <h2 class="section-title">App Screenshots & Previews</h2>
+      <p class="section-subtitle">Take a closer look at the MedScan workspace interface</p>
+
+      <div class="carousel-container">
+        <button class="carousel-btn prev-btn" id="prev-slide"><i class="ri-arrow-left-s-line"></i></button>
+        
+        <div class="carousel-window">
+          <div class="carousel-slides" id="carousel-track">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-slide-item">
+              <div class="phone-frame-screenshot">
+                <div class="app-screen-mock scan-mock">
+                  <div class="top-nav-mock"><i class="ri-flashlight-fill"></i> <span>Live OCR Scanner</span> <i class="ri-settings-4-fill"></i></div>
+                  <div class="camera-lens">
+                    <p>Align medicine label here</p>
+                    <div class="green-target-box"></div>
+                    <div class="scan-running-line"></div>
+                  </div>
+                  <div class="screenshot-info">
+                    <h4>01. Instant Scanning</h4>
+                    <p>Point camera and capture text details immediately.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide-item">
+              <div class="phone-frame-screenshot">
+                <div class="app-screen-mock result-mock">
+                  <div class="top-nav-mock"><i class="ri-arrow-left-line"></i> <span>Analysis Result</span> <i class="ri-share-fill"></i></div>
+                  <div class="result-details-content">
+                    <div class="pill-title">Paracetamol 500mg</div>
+                    <div class="badge-status success">✓ FDA Approved</div>
+                    <div class="details-card">
+                      <h5>Primary Use</h5>
+                      <p>Used to treat mild to moderate pain (headaches, muscle aches) and to reduce fever.</p>
+                    </div>
+                  </div>
+                  <div class="screenshot-info">
+                    <h4>02. Detailed Breakdown</h4>
+                    <p>Get usage guidance and verified clinical summaries.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide-item">
+              <div class="phone-frame-screenshot">
+                <div class="app-screen-mock warning-mock">
+                  <div class="top-nav-mock"><i class="ri-alert-fill"></i> <span>Safety Warning</span> <i class="ri-phone-fill"></i></div>
+                  <div class="warning-details-content">
+                    <div class="pill-title">Amoxicillin 250mg</div>
+                    <div class="badge-status danger">⚠ Allergy Alert</div>
+                    <div class="details-card alert-card">
+                      <h5>Allergy Risk</h5>
+                      <p>Contains Penicillin. High risk of rash or anaphylaxis if you have allergy records.</p>
+                    </div>
+                  </div>
+                  <div class="screenshot-info">
+                    <h4>03. Smart Alerts</h4>
+                    <p>Immediate warnings for allergies and contraindications.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-slide-item">
+              <div class="phone-frame-screenshot">
+                <div class="app-screen-mock schedule-mock">
+                  <div class="top-nav-mock"><i class="ri-calendar-todo-fill"></i> <span>Dosage Planner</span> <i class="ri-add-box-fill"></i></div>
+                  <div class="schedule-details-content">
+                    <div class="schedule-header">Today's Schedule</div>
+                    <div class="schedule-item-card">
+                      <div class="time">08:00 AM</div>
+                      <div class="med">Paracetamol - 1 Tablet</div>
+                    </div>
+                    <div class="schedule-item-card completed">
+                      <div class="time">01:00 PM</div>
+                      <div class="med">Vitamin C - Capsule</div>
+                    </div>
+                  </div>
+                  <div class="screenshot-info">
+                    <h4>04. Intake Reminders</h4>
+                    <p>Log your schedule and receive smart alarms.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="carousel-btn next-btn" id="next-slide"><i class="ri-arrow-right-s-line"></i></button>
+      </div>
+      
+      <div class="carousel-dots-indicator" id="dots-container"></div>
+    </section>
+
+    <!-- CORE FEATURES SECTION -->
+    <section class="features" id="app-features">
+      <h2 class="features-title">Core PWA Benefits</h2>
+      <p class="features-subtitle">App-like experience packed directly into your web browser</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-wifi-off"></i>
+          <h3>Offline Capabilities</h3>
+          <p>No network? No worries. Search medicines and verify alerts offline with local storage databases.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-cloud-lightning"></i>
+          <h3>Fast Loading</h3>
+          <p>Pre-cached page shells boot in milliseconds, delivering visual data instantly.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-bell"></i>
+          <h3>Smart Reminders</h3>
+          <p>Enables browser-level push notifications to keep you synced with dosage plans.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="glow"></span>
+          <i class="bx bx-mobile-alt"></i>
+          <h3>Standalone Experience</h3>
+          <p>Hides browser search bars, launching in portrait mode as a native desktop/mobile application.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US & PRIVACY -->
+    <section class="trust" id="download-security">
+      <h2 class="trust-title">Security & Integrity</h2>
+      <p class="trust-subtitle">Engineered for patient trust, transparency, and data privacy</p>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon"><i class="bx bx-lock-shield"></i></div>
+          <div class="trust-content">
+            <h3>HIPAA Compliance Ready</h3>
+            <p>We respect medical regulations. MedScan does not collect, analyze, or distribute identifiable healthcare information.</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon"><i class="bx bx-refresh"></i></div>
+          <div class="trust-content">
+            <h3>Verified Datasets</h3>
+            <p>Our lookup catalog maps directly to active catalogs from official national healthcare departments.</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon"><i class="bx bx-check-shield"></i></div>
+          <div class="trust-content">
+            <h3>Open Source Auditable</h3>
+            <p>All core libraries and databases can be inspected by developers to check security credentials.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE FAQ SECTION -->
+    <section class="faq-section" id="faqs">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Got questions? Find answers and setup help below</p>
+
+      <div class="faq-container">
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is MedScan free to use?</span>
+            <i class="ri-add-line"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, MedScan is completely free. We believe everyone should have easy access to medicine descriptions and allergy risks without paywalls.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I install the Progressive Web App (PWA)?</span>
+            <i class="ri-add-line"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Simply click the "Install MedScan App" button at the top of this page. On Android Chrome/Edge, it opens a quick prompt. On iOS Safari, click Share and select "Add to Home Screen".</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Does the app work offline?</span>
+            <i class="ri-add-line"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, once installed, the page shell and scanning catalog are cached locally. You can scan and view standard medication composition details without an active internet connection.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is my personal information secure?</span>
+            <i class="ri-add-line"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely. No scans are saved on our servers. All text recognition (OCR) and allergy checks occur locally on your device, ensuring complete privacy.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="footer">
+      <div class="footer-glow"></div>
+      <div class="footer-content">
+        
+        <div class="footer-brand">
+          <h2>Medscan</h2>
+          <p>Scan medicines instantly. Understand usage. Stay safe — always.</p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Explore</h4>
+          <a href="index.html#about">About Us</a>
+          <a href="download.html">Download Page</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p>Email: medscan108@gmail.com</p>
+          <p>Built with ❤️ for safer healthcare</p>
+        </div>
+
+        <div class="footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#"><i class="ri-twitter-x-fill"></i></a>
+            <a href="#"><i class="ri-instagram-line"></i></a>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+            <a href="#"><i class="ri-linkedin-fill"></i></a>
+          </div>
+        </div>
+
+      </div>
+      <div class="footer-bottom">
+        © 2026 Medscan. All rights reserved.
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- PWA INSTALL INSTRUCTION MODAL -->
+  <div id="pwaInstallModal" class="login-modal-overlay">
+    <div class="login-container pwa-modal">
+      <button class="close-btn" onclick="closePwaModal()">&times;</button>
+      
+      <div class="logo-box" style="margin-bottom: 16px;">
+        <img src="medscan.png" alt="MedScan PWA" style="width: 72px; height: auto; filter: drop-shadow(0 0 10px rgba(0,255,174,0.4));">
+      </div>
+      
+      <h2 class="login-title" style="margin-bottom: 12px;">Install MedScan</h2>
+      <p class="pwa-subtitle" style="margin-bottom: 24px; color: #565869; font-size: 14px;">Enjoy medicine scanning, faster loading times, and offline support directly from your home screen.</p>
+      
+      <div id="pwa-install-actions">
+        <button id="pwa-install-confirm-btn" class="btn-continue" style="display: none;">Install App</button>
+      </div>
+
+      <div id="pwa-instructions-list" class="pwa-steps" style="text-align: left; display: none;">
+        <p style="font-weight: 700; margin-bottom: 12px; color: #2d333a;" class="pwa-instructions-header">How to install on your device:</p>
+        <ol style="padding-left: 20px; font-size: 14px; line-height: 1.8; color: #565869;" class="pwa-steps-list">
+          <li id="pwa-step-1">Open your browser menu (e.g. click the share icon or three dots).</li>
+          <li id="pwa-step-2">Select <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong>.</li>
+          <li id="pwa-step-3">Confirm and launch MedScan from your home screen!</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="joker.js"></script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://unpkg.com https://cdn.jsdelivr.net; img-src 'self' data: https://upload.wikimedia.org https://lh3.googleusercontent.com https://*.googleusercontent.com; media-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com https://*.firebasestorage.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://accounts.google.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://*.firebaseapp.com https://accounts.google.com https://apis.google.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://unpkg.com https://cdn.jsdelivr.net; img-src 'self' data: https://upload.wikimedia.org https://lh3.googleusercontent.com https://*.googleusercontent.com; media-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com https://*.firebasestorage.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://accounts.google.com https://*.google-analytics.com https://*.analytics.google.com https://formspree.io https://api.formspree.io; form-action 'self' https://formspree.io https://api.formspree.io; frame-src 'self' https://*.firebaseapp.com https://accounts.google.com https://apis.google.com;">
   <title>MedScan - Accurate Medicine Scans & AI Guidance</title>
 
   <script>
@@ -34,36 +34,50 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <!-- PWA Manifest & Settings -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#00ffae">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MedScan">
+  <link rel="apple-touch-icon" href="/icon-192.png">
 </head>
 
 <body>
 
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scroll-bar"></div>
+  </div>
+
   <div class="container">
 
-    <!-- NAVBAR -->
-    <nav>
-      <div class="nav-left">
-        <div class="hamburger">&#9776;</div>
-        <img src="medscan.png" class="logo" alt="MedScan Logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
-      </div>
-
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#download">Download</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="login.html" class="apple-glass-btn">Login</a></li>
-      </ul>
-
-      <div class="follow-wrap">
-        <div class="icon">
-          <a href="#" class="follow-btn">Follow us</a>
-          <a href="#"><i class="ri-facebook-fill"></i></a>
-          <a href="#"><i class="ri-instagram-fill"></i></a>
-          <a href="#"><i class="ri-twitter-x-fill"></i></a>
+    <!-- NAVBAR HEADER WRAPPER -->
+    <header class="site-header">
+      <nav>
+        <div class="nav-left">
+          <div class="hamburger">&#9776;</div>
+          <img src="medscan.png" class="logo" alt="MedScan Logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
         </div>
-      </div>
-    </nav>
+
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="login.html" class="apple-glass-btn">Login</a></li>
+        </ul>
+
+        <div class="follow-wrap">
+          <div class="icon">
+            <a href="#" class="follow-btn">Follow us</a>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+            <a href="#"><i class="ri-twitter-x-fill"></i></a>
+          </div>
+        </div>
+      </nav>
+    </header>
 
     <!-- HERO SECTION -->
     <section class="bolt">
@@ -77,7 +91,7 @@
 
         <div class="hero-buttons">
           <a href="#" class="apple-glass-btn primary">Scan Now</a>
-          <a href="#download" class="apple-glass-btn secondary">Download</a>
+          <a href="download.html" class="apple-glass-btn secondary">Download</a>
         </div>
       </div>
       <div class="glass-media">
@@ -88,7 +102,7 @@
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="how-it-works" id="about">
+    <section class="how-it-works" id="how-it-works">
       <h2>How It Works</h2>
       <p class="how-subtitle">
         From scan to clarity — powered by AI precision
@@ -172,6 +186,60 @@
     </section>
 
   </div>
+
+  <!-- ABOUT US SECTION -->
+  <section class="about-us" id="about">
+    <h2 class="about-title">About MedScan</h2>
+    <p class="about-subtitle">Empowering individuals with instant, transparent medication clarity</p>
+    
+    <div class="about-grid">
+      <div class="about-card">
+        <span class="glow"></span>
+        <div class="about-icon"><i class="bx bx-info-circle"></i></div>
+        <h3>Who We Are</h3>
+        <p>MedScan is an AI-powered health-tech platform designed to simplify medication guidance. We bridge the gap between complex prescription jargon and everyday safety awareness.</p>
+      </div>
+      
+      <div class="about-card">
+        <span class="glow"></span>
+        <div class="about-icon"><i class="bx bx-target-lock"></i></div>
+        <h3>Our Mission</h3>
+        <p>To eliminate adverse drug events and prevent medication misuse worldwide by putting verified, clear medicine insights right in the palm of your hand.</p>
+      </div>
+      
+      <div class="about-card">
+        <span class="glow"></span>
+        <div class="about-icon"><i class="bx bx-show-alt"></i></div>
+        <h3>Our Vision</h3>
+        <p>A global healthcare ecosystem where everyone has instant access to medicine details, composition, and risks, leading to zero accidental drug complications.</p>
+      </div>
+    </div>
+
+    <div class="values-showcase">
+      <div class="values-left">
+        <h3>Why Choose MedScan?</h3>
+        <p>We combine cutting-edge artificial intelligence with absolute healthcare clarity to deliver a safety net for your daily wellness.</p>
+        <ul class="benefits-list">
+          <li><i class="bx bx-check-circle"></i> <span><strong>Instant Verification:</strong> AI scanner deciphers medicine packaging in seconds.</span></li>
+          <li><i class="bx bx-check-circle"></i> <span><strong>Global Standards:</strong> Information matched with certified international health guidelines.</span></li>
+          <li><i class="bx bx-check-circle"></i> <span><strong>Complete Privacy:</strong> Your scans are secure, processed locally, and private.</span></li>
+        </ul>
+      </div>
+      <div class="values-right">
+        <div class="value-item">
+          <i class="bx bx-shield-alt-2"></i>
+          <h4>Safety First</h4>
+          <p>We prioritize allergy alerts and interactions before everything else.</p>
+        </div>
+        <div class="value-item">
+          <i class="bx bx-happy-beaming"></i>
+          <h4>Simplicity</h4>
+          <p>No medical degrees required. Clear, concise summaries for everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- why trust us -->
   <section class="trust">
     <h2 class="trust-title">Why Trust Us?</h2>
@@ -303,7 +371,110 @@
       </p>
     </div>
   </section>
-  <footer class="footer" id="contact">
+
+  <!-- CONTACT US SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2 class="contact-title">Get In Touch</h2>
+        <p class="contact-subtitle">Have questions or feedback? Our team is here to support you.</p>
+        
+        <div class="info-cards">
+          <div class="info-card">
+            <span class="glow"></span>
+            <i class="bx bx-envelope"></i>
+            <div>
+              <h4>Email Us</h4>
+              <p>medscan108@gmail.com</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <span class="glow"></span>
+            <i class="bx bx-phone"></i>
+            <div>
+              <h4>Call Us</h4>
+              <p>+91 SOON</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <span class="glow"></span>
+            <i class="bx bx-map"></i>
+            <div>
+              <h4>Our Location</h4>
+              <p>india,maharashtra,mumbai</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-social">
+          <h4>Connect With Us</h4>
+          <div class="social-icons">
+            <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+            <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+            <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <!-- Formspree HTML fallback: replace YOUR_FORM_ID with your Formspree form ID -->
+        <form id="main-contact-form" action="https://formspree.io/f/meebjekl" method="POST" accept-charset="UTF-8" novalidate>
+          <!-- Hidden fields for Formspree best-practices -->
+          <input type="hidden" name="_subject" value="New message from MedScan website">
+          <input type="hidden" name="_gotcha" style="display:none">
+          <!-- _replyto is recommended; Formspree will use this as the reply-to address -->
+          <input type="hidden" name="_replyto" id="_replyto_hidden">
+          <h3>Send a Message</h3>
+          
+          <div class="form-group">
+            <label for="contact-name">Full Name</label>
+            <div class="input-wrap">
+              <i class="bx bx-user"></i>
+              <input type="text" id="contact-name" name="name" placeholder="John Doe" required>
+            </div>
+            <span class="error-msg" id="name-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <div class="input-wrap">
+              <i class="bx bx-envelope"></i>
+              <input type="email" id="contact-email" name="email" placeholder="john@example.com" required>
+            </div>
+            <span class="error-msg" id="email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <div class="input-wrap">
+              <i class="bx bx-bookmark"></i>
+              <input type="text" id="contact-subject" name="subject" placeholder="General Inquiry" required>
+            </div>
+            <span class="error-msg" id="subject-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <div class="input-wrap textarea-wrap">
+              <i class="bx bx-message-square-detail"></i>
+              <textarea id="contact-message" name="message" placeholder="Write your message here..." rows="5" required></textarea>
+            </div>
+            <span class="error-msg" id="message-error"></span>
+          </div>
+
+          <button type="submit" class="contact-submit-btn">
+            <span>Send Message</span>
+            <i class="ri-send-plane-fill"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer">
     <div class="footer-glow"></div>
 
     <div class="footer-content">
@@ -330,7 +501,7 @@
       <!-- CONTACT -->
       <div class="footer-contact">
         <h4>Contact</h4>
-        <p>Email: Medscanfind@gmail.com</p>
+        <p>Email: medscan108@gmail.com</p>
         <p>Built with ❤️ for safer healthcare</p>
       </div>
 
@@ -382,6 +553,33 @@
       <div class="links-container">
         <a href="forgot-password.html" class="auth-link">Forgot password?</a>
         <a href="signup.html" class="auth-link signup">Don't have an account? <span>Sign up</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PWA INSTALL INSTRUCTION MODAL -->
+  <div id="pwaInstallModal" class="login-modal-overlay">
+    <div class="login-container pwa-modal">
+      <button class="close-btn" onclick="closePwaModal()">&times;</button>
+      
+      <div class="logo-box" style="margin-bottom: 16px;">
+        <img src="medscan.png" alt="MedScan PWA" style="width: 72px; height: auto; filter: drop-shadow(0 0 10px rgba(0,255,174,0.4));">
+      </div>
+      
+      <h2 class="login-title" style="margin-bottom: 12px;">Install MedScan</h2>
+      <p class="pwa-subtitle" style="margin-bottom: 24px; color: #565869; font-size: 14px;">Enjoy medicine scanning, faster loading times, and offline support directly from your home screen.</p>
+      
+      <div id="pwa-install-actions">
+        <button id="pwa-install-confirm-btn" class="btn-continue" style="display: none;">Install App</button>
+      </div>
+
+      <div id="pwa-instructions-list" class="pwa-steps" style="text-align: left; display: none;">
+        <p style="font-weight: 700; margin-bottom: 12px; color: #2d333a;" class="pwa-instructions-header">How to install on your device:</p>
+        <ol style="padding-left: 20px; font-size: 14px; line-height: 1.8; color: #565869;" class="pwa-steps-list">
+          <li id="pwa-step-1">Open your browser menu (e.g. click the share icon or three dots).</li>
+          <li id="pwa-step-2">Select <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong>.</li>
+          <li id="pwa-step-3">Confirm and launch MedScan from your home screen!</li>
+        </ol>
       </div>
     </div>
   </div>
