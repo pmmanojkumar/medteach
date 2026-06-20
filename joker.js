@@ -1,5 +1,6 @@
 const hamburger = document.querySelector(".hamburger");
-const menu = document.querySelector("ul");
+// Target the nav's primary list only (avoid selecting other <ul> on page)
+const menu = document.querySelector("nav ul");
 const body = document.body;
 
 // Toggle menu (only if both exist)
@@ -11,7 +12,7 @@ if (hamburger && menu) {
   });
 
   // Close menu when clicking nav links (mobile fix)
-  document.querySelectorAll("ul li a").forEach(link => {
+  document.querySelectorAll("nav ul li a").forEach(link => {
     link.addEventListener("click", () => {
       menu.classList.remove("active");
       hamburger.classList.remove("active");
@@ -20,12 +21,30 @@ if (hamburger && menu) {
   });
 
   // Close menu when clicking outside (UX upgrade)
-  document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-      menu.classList.remove("active");
-      hamburger.classList.remove("active");
-      body.classList.remove("menu-open");
-    }
+  // Use an overlay to close menu cleanly and prevent accidental clicks
+  let navOverlay = document.querySelector('.nav-overlay');
+  if (!navOverlay) {
+    navOverlay = document.createElement('div');
+    navOverlay.className = 'nav-overlay';
+    document.body.appendChild(navOverlay);
+  }
+
+  // Toggle overlay visibility when menu opens/closes
+  const toggleOverlay = (show) => {
+    if (show) navOverlay.classList.add('visible'); else navOverlay.classList.remove('visible');
+  };
+
+  // Observe menu class changes to show/hide overlay
+  const observer = new MutationObserver(() => {
+    toggleOverlay(menu.classList.contains('active'));
+  });
+  observer.observe(menu, { attributes: true, attributeFilter: ['class'] });
+
+  // Close when overlay clicked
+  navOverlay.addEventListener('click', () => {
+    menu.classList.remove('active');
+    hamburger.classList.remove('active');
+    body.classList.remove('menu-open');
   });
 }
 

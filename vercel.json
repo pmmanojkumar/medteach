@@ -1,3 +1,10 @@
 {
+  "version": 2,
+  "routes": [
+    { "src": "/download", "dest": "/download.html" },
+    { "src": "/index", "dest": "/index.html" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/thank-you", "dest": "/thank-you.html" }
+  ],
   "cleanUrls": true
 }

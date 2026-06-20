@@ -21,6 +21,12 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Prevent body scroll while mobile menu is open */
+body.menu-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* ===============================
    PAGE LOAD
 ================================ */
@@ -361,6 +367,22 @@ ul li:last-child a.apple-glass-btn {
     z-index: 9999;
   }
 
+  /* overlay will sit behind the menu and above content */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+    z-index: 9998;
+  }
+
+  .nav-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
   ul.active {
     transform: translateX(0);
   }
@@ -397,6 +419,12 @@ ul li:last-child a.apple-glass-btn {
   .result p  { font-size: 14px !important; }
   .result span{ font-size: 13px !important; padding: 5px 10px !important; }
   }
+
+  /* Hide large follow widget on very small screens to avoid overlap */
+  .follow-wrap { display: none !important; }
+
+  /* Remove glass-media left margin to prevent horizontal overflow */
+  .glass-media { margin-left: 0 !important; }
 
   .hero-buttons {
     flex-direction: column;
