@@ -44,10 +44,37 @@ const scanScreen = document.querySelector(".scan");
 const resultScreen = document.querySelector(".result");
 
 if (scanScreen && resultScreen) {
-  setInterval(() => {
+  // Use a controlled timeout loop instead of setInterval to avoid overlap
+  let toggleTimer = null;
+  let isRunning = true;
+
+  const doToggle = () => {
     scanScreen.classList.toggle("active");
     resultScreen.classList.toggle("active");
-  }, 4000);
+    toggleTimer = setTimeout(doToggle, 4000);
+  };
+
+  // Start toggling only when the element is visible to reduce CPU when off-screen
+  const visObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!isRunning) {
+          isRunning = true;
+          doToggle();
+        } else if (!toggleTimer) {
+          doToggle();
+        }
+      } else {
+        isRunning = false;
+        if (toggleTimer) {
+          clearTimeout(toggleTimer);
+          toggleTimer = null;
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  visObserver.observe(scanScreen);
 }
 
 // Global functions for inline HTML event handlers (bound to window)
@@ -116,7 +143,13 @@ window.addEventListener("load", () => {
     const source = video.querySelector("source");
     if (source && source.dataset.src) {
       source.src = source.dataset.src;
+      // Load and attempt to play the video after it is available.
       video.load();
+      // Some browsers block autoplay; attempt play but ignore failures.
+      video.play().catch(() => {
+        // Autoplay blocked — leave muted video paused until user interaction
+        console.info('Hero video autoplay blocked; will play on user interaction.');
+      });
     }
   }
 });
